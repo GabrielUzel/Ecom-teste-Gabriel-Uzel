@@ -14,8 +14,22 @@ type MovieProps = {
   vote_average: number;
 };
 
+const calculateInitialNumberOfMovies = (width: number) => { 
+    if (width >= 1715) return 12;
+    if (width >= 1495) return 10;
+    if (width >= 1275) return 8;
+    if (width >= 0) return 6;
+}
+
 export default function TopRatedMovies() {
     const [data, setData] = useState<MovieProps[]>([]);
+    const [viewAllData, setViewAllData] = useState(false);
+    const [viewportWidth, setViewportWidth] = useState<number>(0);
+    const initialNumberOfMovies = calculateInitialNumberOfMovies(viewportWidth);
+
+    const loadedData = viewAllData ? data : data.slice(0, initialNumberOfMovies);
+
+
 
     useEffect(() => {
         const fetchPages = async () => {
@@ -70,13 +84,27 @@ export default function TopRatedMovies() {
         };
     
         fetchPages();
-    });
+    }, [data.length]);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const handleResize = () => {
+                setViewportWidth(window.innerWidth);
+            };
+
+            handleResize();
+            window.addEventListener('resize', handleResize);
+        }
+    }, []);
 
     return (
-        <div className={styles.movies_list}>
-            {data.map(movie => (
-                <MoviePoster key={movie.id} {...movie} />
-            ))}
+        <div className={styles.movies_list_container}>
+            <div className={styles.movies_list}>
+                {loadedData.map(movie => (
+                    <MoviePoster key={movie.id} {...movie} />
+                ))}
+            </div>
+            <button className={styles.show_more_button} onClick={() => setViewAllData(!viewAllData)}>{viewAllData ? "Mostrar menos" : "Mostrar mais"}</button>
         </div>
     );
 }
