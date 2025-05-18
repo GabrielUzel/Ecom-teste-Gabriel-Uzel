@@ -1,39 +1,67 @@
-import { useEffect, useState } from 'react';
-import styles from "../../styles/avarege_vote_per_genre.module.css";
-import type { MovieProps } from '../Props/movie_props';
+// import { useEffect, useState } from 'react';
+// import styles from "../../styles/movies_per_genre.module.css";
+// import type { MovieProps } from '../Props/movie_props';
+// import type { GenreProps } from '../Props/genre_props';
 
-type AvaregeVotePerGenreProps = {
-    data: MovieProps[];
-};
+// type MoviesPerGenreProps = {
+//     data: MovieProps[];
+// };
 
-// const fillHashMap = (hashMap: Record<number, number>, data: MovieProps[]) => {
-//     data.forEach((movie: MovieProps) => {
-//         movie.genre_ids.forEach((genreId: number) => { 
-//             hashMap[genreId] = (hashMap[genreId] || 0) + 1;
-//         });
-//     });
+// export default function AvaregeVotePerGenre({data}: MoviesPerGenreProps) {
+//     const [genresData, setGenresData] = useState<GenreProps[]>([]);
+//     const [genreId_entries_hashMap, setGenreId_entries_hashMap] = useState<{ [key: string]: number }>({}); 
+ 
+//     useEffect(() => {
+//         try {
+//             const options = {
+//                 method: 'GET',
+//                 headers: {
+//                     accept: 'application/json',
+//                     Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`
+//                 }
+//             };
 
-//     return hashMap;
+//             fetch('https://api.themoviedb.org/3/genre/movie/list?language=pt-br', options)
+//             .then(res => res.json())
+//             .then(data => {
+//                 setGenresData(data.genres);
+//             });
+//         } catch (error) {
+//             console.error('Error fetching data:', error);
+//         }
+//     }, []);
+
+//     useEffect(() => {
+//         if (genresData.length === 0) return;
+
+//         const getGenreNameById = (genreId: number) => {
+//             const genre = genresData.find(genre => genre.id === genreId);
+//             return genre ? genre.name : 'Desconhecido';
+//         }
+
+//         const fillHashMap = (data: MovieProps[]) => {
+//             const hashMap: { [key: string]: number } = {};
+            
+//             data.forEach((movie: MovieProps) => {
+//                 movie.genre_ids.forEach((genreId: number) => { 
+//                     const genreName = getGenreNameById(genreId);
+//                     hashMap[genreName] = (hashMap[genreName] || 0) + 1;
+//                 });
+//             });
+
+//             return hashMap;
+//         }
+
+//         setGenreId_entries_hashMap(fillHashMap(data));
+//     }, [genresData, data]);
+    
+//     return (
+//         <div className={styles.movies_per_genre_container}>
+//             {Object.entries(genreId_entries_hashMap)
+//             .sort((a, b) => b[1] - a[1])
+//             .map(([genreName, count], index) => (
+//                 <Genre key={genreName} position={index + 1} genreName={genreName} count={count} />
+//             ))}
+//         </div>
+//     );
 // }
-
-// const calculateTotalGenresEntries = (hashMap: Record<number, number>) => {
-//     let total = 0;
-
-//     for (const key in hashMap) {
-//         total += hashMap[key];
-//     }
-
-//     return total;
-// }
-
-export default function AvaregeVotePerGenre({data}: AvaregeVotePerGenreProps) {
-    // const genreId_entries_hashMap = fillHashMap({}, data);
-    // const totalGenreEntries = calculateTotalGenresEntries(genreId_entries_hashMap);
-
-    return (
-        <>
-            {/* <pre>{JSON.stringify(genreId_entries_hashMap, null, 2)}</pre>
-            <p>Total: {totalGenreEntries}</p> */}
-        </>
-    );
-}

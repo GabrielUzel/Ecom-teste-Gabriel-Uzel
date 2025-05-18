@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import styles from "../styles/home.module.css";
 import TopRatedMovies from "@/components/Movies list/top_rated_movies";
-import AvaregeVotePerGenre from "@/components/Avarege Genre/avarege_vote_per_genre";
+// import AvaregeVotePerGenre from "@/components/Avarege Genre/avarege_vote_per_genre";
 import MoviesPerGenre from "@/components/Movies per Genre/movies_per_genre";
 import type { MovieProps } from '../components/Props/movie_props';
 
@@ -91,7 +91,7 @@ export default function Home() {
                 <div className={styles.metrics_container}>
                     <div>
                         <h3 className={styles.metrics_subtitle}>Média de nota por gênero</h3>
-                        <AvaregeVotePerGenre data={data}/>
+                        {/* <AvaregeVotePerGenre data={data}/> */}
                     </div>
                     <div className={styles.vertical_line}></div>
                     <div>
