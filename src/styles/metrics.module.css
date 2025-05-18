@@ -1,0 +1,21 @@
+.metrics_container {
+    display: grid;
+    row-gap: 2px;
+    grid-auto-flow: column;
+    grid-auto-columns: min-content;
+    column-gap: 100px;
+}
+
+.movies_per_genre_container {
+    grid-template-rows: repeat(5, auto);
+}
+
+.movies_per_year_container {
+    grid-template-rows: repeat(10, auto);
+}
+
+.metrics_entrie {
+    font-size: 18px;
+    white-space: nowrap;
+    min-width: max-content;
+}

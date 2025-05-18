@@ -1,4 +1,4 @@
-import styles from "../../styles/movies_per_genre.module.css";
+import styles from "../../styles/metrics.module.css";
 
 type GenreProps = {
     position: number;
@@ -8,7 +8,7 @@ type GenreProps = {
 
 export default function Genre({ position, genreName, count }: GenreProps) {
     return (
-        <p className={styles.genre_entrie}>
+        <p className={styles.metrics_entrie}>
             {position}. {genreName}: {count}
         </p>
     );

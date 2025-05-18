@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Genre from './genre';
-import styles from "../../styles/movies_per_genre.module.css";
+import styles from "../../styles/metrics.module.css";
 import type { MovieProps } from '../Props/movie_props';
 import type { GenreProps } from '../Props/genre_props';
 
@@ -8,7 +8,7 @@ type MoviesPerGenreProps = {
     data: MovieProps[];
 };
 
-export default function AvaregeVotePerGenre({data}: MoviesPerGenreProps) {
+export default function MoviesPerGenre({data}: MoviesPerGenreProps) {
     const [genresData, setGenresData] = useState<GenreProps[]>([]);
     const [genreId_entries_hashMap, setGenreId_entries_hashMap] = useState<{ [key: string]: number }>({}); 
  
@@ -57,7 +57,7 @@ export default function AvaregeVotePerGenre({data}: MoviesPerGenreProps) {
     }, [genresData, data]);
     
     return (
-        <div className={styles.movies_per_genre_container}>
+        <div className={`${styles.metrics_container} ${styles.movies_per_genre_container}`}>
             {Object.entries(genreId_entries_hashMap)
             .sort((a, b) => b[1] - a[1])
             .map(([genreName, count], index) => (

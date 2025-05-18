@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import styles from "../styles/home.module.css";
-import TopRatedMovies from "@/components/Movies list/top_rated_movies";
+import TopRatedMovies from "@/components/Movies_list/top_rated_movies";
 // import AvaregeVotePerGenre from "@/components/Avarege Genre/avarege_vote_per_genre";
-import MoviesPerGenre from "@/components/Movies per Genre/movies_per_genre";
+import MoviesPerGenre from "@/components/Movies_per_Genre/movies_per_genre";
+import MoviesPerYear from '@/components/Movies_per_Year/movies_per_year';
 import type { MovieProps } from '../components/Props/movie_props';
 
 export default function Home() {
@@ -98,7 +99,16 @@ export default function Home() {
                         <h3 className={styles.metrics_subtitle}>Quantidade de filmes por gênero</h3>
                         <MoviesPerGenre data={data}/>
                     </div>
+                    <div>
+                        <h3 className={styles.metrics_subtitle}>Quantidade de filmes por ano</h3>
+                        <MoviesPerYear data={data}/>
+                    </div>
                 </div>
+            </div>
+            <div className={styles.horizontal_line}></div>
+
+            <div>
+                <h2 className={styles.home_subtitle}>Filmes no top trending da semana</h2>
             </div>
         </div>
     );
