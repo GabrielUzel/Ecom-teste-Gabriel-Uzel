@@ -1,17 +1,8 @@
 import Image from "next/image";
-import styles from "../styles/movie_poster.module.css";
+import styles from "../../styles/top_rated_movies.module.css";
+import type { MovieProps } from '../Props/movie_props';
 
-type MovieProps = {
-  id: number;
-  genre_ids: number[];
-  overview: string;
-  poster_path: string;
-  release_date: string;
-  title: string;
-  vote_average: number;
-};
-
-export default function MoviePoster({ poster_path, title, vote_average }: MovieProps) {
+export default function MoviePoster({ position, poster_path, title, vote_average }: MovieProps) {
     return (
         <div className={styles.movie_poster}>
             <Image
@@ -20,7 +11,7 @@ export default function MoviePoster({ poster_path, title, vote_average }: MovieP
                 height={200}
                 alt={title}
             />
-            <p className={styles.movie_title}>{title}</p>
+            <p className={styles.movie_title}>{position}. {title}</p>
             <div className={styles.vote_average}>
                 <Image
                     src={"star-solid.svg"}
