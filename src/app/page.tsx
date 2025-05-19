@@ -23,6 +23,11 @@ export default function Home() {
     const [data, setData] = useState<MovieProps[]>([]);
     const [trendingData, setTrendingData] = useState<TrendingProps[]>([]);
     const [genresData, setGenresData] = useState<GenreProps[]>([]);
+    const [isDataLoading, setIsDataLoading] = useState(true);
+    const [isAvaregeLoading, setIsAvaregeLoading] = useState(true);
+    const [isGenresLoading, setIsGenresLoading] = useState(true);
+    const [isYearsLoading, setIsYearsLoading] = useState(true);
+    const [isTrendingLoading, setIsTrendingLoading] = useState(true);
 
     useEffect(() => {
         const fetchPages = async () => {
@@ -65,6 +70,12 @@ export default function Home() {
                 setData(refinedData.slice(0, -10));
             } catch (error) {
                 console.error('Error fetching data:', error);
+            } finally {
+                setIsDataLoading(false);
+                setIsYearsLoading(false);
+                setIsAvaregeLoading(false);
+                setIsGenresLoading(false);
+                setIsTrendingLoading(false);
             }
         };
     
@@ -96,7 +107,7 @@ export default function Home() {
                 setTrendingData(refinedData);
             } catch (error) {
                 console.error('Error fetching data:', error);
-            }
+            } 
         };
     
         fetchPages();
@@ -119,7 +130,7 @@ export default function Home() {
             });
         } catch (error) {
             console.error('Error fetching data:', error);
-        }
+        } 
     }, []);
 
     return (
@@ -139,33 +150,76 @@ export default function Home() {
 
             <div>
                 <h2 className={styles.home_subtitle}>Top 250 filmes</h2>
-                <TopRatedMovies data={data} />
+                {isDataLoading ? (
+                    <div className={styles.loadingOverlay}>
+                        <div className={styles.spinner}></div>
+                    </div>
+                ) : (
+                    <TopRatedMovies data={data} />
+                )}
             </div>
             <div className={styles.horizontal_line}></div>
 
             <div>
                 <h2 className={styles.home_subtitle}>Métricas</h2>
                 <div className={styles.metrics_container}>
-                    <div>
-                        <h3 className={styles.metrics_subtitle}>Média de nota por gênero</h3>
-                        <AvaregeVotePerGenre data={data} genresData={genresData}/>
-                    </div>
-                    <div>
-                        <h3 className={styles.metrics_subtitle}>Quantidade de filmes por gênero</h3>
-                        <MoviesPerGenre data={data} genresData={genresData}/>
-                    </div>
-                    <div>
-                        <h3 className={styles.metrics_subtitle}>Quantidade de filmes por ano</h3>
-                        <MoviesPerYear data={data}/>
-                    </div>
+                    {isAvaregeLoading ? (
+                        <div className={styles.loadingOverlay}>
+                            <div className={styles.spinner}></div>
+                        </div>
+                    ) : (
+                        <div>
+                            <h3 className={styles.metrics_subtitle}>Média de nota por gênero</h3>
+                            <AvaregeVotePerGenre data={data} genresData={genresData}/>
+                        </div>
+                    )}
+
+                    {isGenresLoading ? (
+                        <div className={styles.loadingOverlay}>
+                            <div className={styles.spinner}></div>
+                        </div>
+                    ) : (
+                        <div>
+                            <h3 className={styles.metrics_subtitle}>Quantidade de filmes por gênero</h3>
+                            <MoviesPerGenre data={data} genresData={genresData}/>
+                        </div>
+                    )}
+
+                    {isGenresLoading ? (
+                        <div className={styles.loadingOverlay}>
+                            <div className={styles.spinner}></div>
+                        </div>
+                    ) : (
+                        <div>
+                            <h3 className={styles.metrics_subtitle}>Quantidade de filmes por gênero</h3>
+                            <MoviesPerGenre data={data} genresData={genresData}/>
+                        </div>
+                    )}
+
+                    {isYearsLoading ? (
+                        <div className={styles.loadingOverlay}>
+                            <div className={styles.spinner}></div>
+                        </div>
+                    ) : (
+                        <div>
+                            <h3 className={styles.metrics_subtitle}>Quantidade de filmes por ano</h3>
+                            <MoviesPerYear data={data}/>
+                        </div>
+                    )}
                 </div>
             </div>
             <div className={styles.horizontal_line}></div>
 
-            <div>
-                <h2 className={styles.home_subtitle}>Filmes no top trending da semana</h2>
-                <TrendingMovies topMoviesData={data} trendingData={trendingData}/>
-            </div>
+            {isTrendingLoading ? (
+                <div className={styles.loadingOverlay}>
+                    <div className={styles.spinner}></div>
+                </div>
+            ) : (
+                <div>
+                    <h2 className={styles.home_subtitle}>Filmes no top trending da semana</h2>
+                    <TrendingMovies topMoviesData={data} trendingData={trendingData}/>
+                </div>
+            )}
         </div>
     );
 }
