@@ -6,7 +6,7 @@ import type { MovieProps } from '../Props/movie_props';
 export default function MoviePoster({ id, position, poster_path, title, vote_average }: MovieProps) {
     return (
         <div className={styles.movie_poster}>
-            <Link href={`https://www.themoviedb.org/movie/${id}`}>
+            <Link href={`https://www.themoviedb.org/movie/${id}`} target="_blank">
                 <Image
                     src={`https://image.tmdb.org/t/p/original/${poster_path}`}
                     width={200}

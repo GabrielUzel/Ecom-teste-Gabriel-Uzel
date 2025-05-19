@@ -115,14 +115,6 @@ export default function Home() {
 
     useEffect(() => {
         try {
-            const options = {
-                method: 'GET',
-                headers: {
-                    accept: 'application/json',
-                    Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`
-                }
-            };
-
             fetch('https://api.themoviedb.org/3/genre/movie/list?language=pt-br', options)
             .then(res => res.json())
             .then(data => {
