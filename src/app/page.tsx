@@ -145,6 +145,11 @@ export default function Home() {
                 <a className={styles.links} href="https://github.com/GabrielUzel/Ecom-teste-Gabriel-Uzel" target="_blank">github</a>.
                 O objetivo deste trabalho é apresentar minhas habilidades com chamadas assícronas, manipulação de dados
                 e, também, apresentação de resultados em uma interface polida.
+                <br /><br />
+                A priori, estãos listados os primeiros 250 filmes mais bem avaliados do TMDB. Em seguida, temos algumas métricas 
+                dispostas em tabela, são estas a média de notas por gênero, a quantidade de filmes por gênero e a quantidade de
+                filmes por ano. Por fim, está disposta uma lista com os filmes que estão, ao mesmo tempo, no top 250 mais bem avaliados
+                e no top trending da semana.
             </p>
             <div className={styles.horizontal_line}></div>
 
@@ -171,17 +176,6 @@ export default function Home() {
                         <div>
                             <h3 className={styles.metrics_subtitle}>Média de nota por gênero</h3>
                             <AvaregeVotePerGenre data={data} genresData={genresData}/>
-                        </div>
-                    )}
-
-                    {isGenresLoading ? (
-                        <div className={styles.loadingOverlay}>
-                            <div className={styles.spinner}></div>
-                        </div>
-                    ) : (
-                        <div>
-                            <h3 className={styles.metrics_subtitle}>Quantidade de filmes por gênero</h3>
-                            <MoviesPerGenre data={data} genresData={genresData}/>
                         </div>
                     )}
 
