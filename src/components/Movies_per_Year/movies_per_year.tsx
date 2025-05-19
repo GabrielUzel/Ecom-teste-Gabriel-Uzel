@@ -7,7 +7,7 @@ type MoviesPerYearProps = {
 };
 
 export default function MoviesPerYear({data}: MoviesPerYearProps) { 
-    const [years_entries_hashMap, setYears_entries_hashMap] = useState<{ [key: string]: number }>({}); 
+    const [yearsEntriesHashMap, setYearsEntriesHashMap] = useState<{ [key: string]: number }>({}); 
 
     useEffect(() => {
         const fillHashMap = (data: MovieProps[]) => {
@@ -21,12 +21,12 @@ export default function MoviesPerYear({data}: MoviesPerYearProps) {
             return hashMap;
         }
 
-        setYears_entries_hashMap(fillHashMap(data));
+        setYearsEntriesHashMap(fillHashMap(data));
     }, [data]);
     
     return (
         <div className={`${styles.metrics_container} ${styles.movies_per_year_container}`}>
-            {Object.entries(years_entries_hashMap)
+            {Object.entries(yearsEntriesHashMap)
             .map(([year, count]) => (
                 <p className={styles.metrics_entrie} key={year}>{year}: {count}</p>
             ))}

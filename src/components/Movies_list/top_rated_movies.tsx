@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import MoviePoster from './movie_poster';
-import styles from "../../styles/top_rated_movies.module.css";
+import styles from "../../styles/movies_list.module.css";
 import type { MovieProps } from '../Props/movie_props';
 
 type TopRatedMoviesProps = {

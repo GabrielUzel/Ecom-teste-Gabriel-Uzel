@@ -10,7 +10,7 @@ type MoviesPerGenreProps = {
 };
 
 export default function MoviesPerGenre({data, genresData}: MoviesPerGenreProps) {
-    const [genreId_entries_hashMap, setGenreId_entries_hashMap] = useState<{ [key: string]: number }>({}); 
+    const [genreIdEntriesHashMap, setGenreIdEntriesHashMap] = useState<{ [key: string]: number }>({}); 
 
     useEffect(() => {
         if (genresData.length === 0) return;
@@ -33,12 +33,12 @@ export default function MoviesPerGenre({data, genresData}: MoviesPerGenreProps) 
             return hashMap;
         }
 
-        setGenreId_entries_hashMap(fillHashMap(data));
+        setGenreIdEntriesHashMap(fillHashMap(data));
     }, [genresData, data]);
     
     return (
         <div className={`${styles.metrics_container} ${styles.genres_container}`}>
-            {Object.entries(genreId_entries_hashMap)
+            {Object.entries(genreIdEntriesHashMap)
             .sort((first, second) => second[1] - first[1])
             .map(([genreName, count], index) => (
                 <Genre key={genreName} position={index + 1} genreName={genreName} count={count} />

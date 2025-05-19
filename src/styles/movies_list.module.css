@@ -3,6 +3,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 10px;
+}
+
+.trending_container {
+    align-items: flex-start;
 }
 
 .movies_list {
@@ -45,4 +50,15 @@
     flex-direction: row;
     justify-content: flex-start;
     gap: 5px;
+}
+
+.aux_text {
+    font-size: 20px;
+}
+
+.aux_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }

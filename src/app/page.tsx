@@ -6,24 +6,27 @@ import TopRatedMovies from "@/components/Movies_list/top_rated_movies";
 import AvaregeVotePerGenre from "@/components/Avarege_Genre/avarege_vote_per_genre";
 import MoviesPerGenre from "@/components/Movies_per_Genre/movies_per_genre";
 import MoviesPerYear from '@/components/Movies_per_Year/movies_per_year';
+import TrendingMovies from '@/components/Movies_list/trending_movies';
 import type { MovieProps } from '../components/Props/movie_props';
 import type { GenreProps } from '@/components/Props/genre_props';
+import { TrendingProps } from '@/components/Props/trending_props';
+
+const options = {
+    method: 'GET',
+    headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`
+    }
+};
 
 export default function Home() {
     const [data, setData] = useState<MovieProps[]>([]);
+    const [trendingData, setTrendingData] = useState<TrendingProps[]>([]);
     const [genresData, setGenresData] = useState<GenreProps[]>([]);
 
     useEffect(() => {
         const fetchPages = async () => {
             try {
-                const options = {
-                    method: 'GET',
-                    headers: {
-                        accept: 'application/json',
-                        Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`
-                    }
-                };
-
                 const totalPages = 13;
                 const baseUrl = 'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=';
 
@@ -60,6 +63,37 @@ export default function Home() {
                 ));
 
                 setData(refinedData.slice(0, -10));
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+    
+        fetchPages();
+    }, []);
+
+    useEffect(() => {
+        const fetchPages = async () => {
+            try {
+                const totalPages = 20;
+                const baseUrl = 'https://api.themoviedb.org/3/trending/movie/week?language=en-US&page=';
+
+                const fetchPromises = Array.from({ length: totalPages }, (_, i) =>
+                    fetch(`${baseUrl}${i + 1}`, options)
+                    .then(res => res.json())
+                );
+
+                const results = await Promise.all(fetchPromises);
+                const fullData = results.flatMap(page => page.results || []);
+                const filteredData = fullData.map((item: { id: number; }) => ({ id: item.id }));
+
+                // There is a duplicate entrie in the data, so i need to remove it
+                const refinedData = filteredData.filter((movie, index, self) =>
+                    index === self.findIndex((object) => (
+                        object.id === movie.id
+                    )
+                ));
+
+                setTrendingData(refinedData);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -130,6 +164,7 @@ export default function Home() {
 
             <div>
                 <h2 className={styles.home_subtitle}>Filmes no top trending da semana</h2>
+                <TrendingMovies topMoviesData={data} trendingData={trendingData}/>
             </div>
         </div>
     );

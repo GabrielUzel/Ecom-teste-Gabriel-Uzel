@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "../../styles/top_rated_movies.module.css";
+import styles from "../../styles/movies_list.module.css";
 import type { MovieProps } from '../Props/movie_props';
 
 export default function MoviePoster({ position, poster_path, title, vote_average }: MovieProps) {
