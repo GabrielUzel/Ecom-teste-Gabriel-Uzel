@@ -1,67 +1,58 @@
-// import { useEffect, useState } from 'react';
-// import styles from "../../styles/movies_per_genre.module.css";
-// import type { MovieProps } from '../Props/movie_props';
-// import type { GenreProps } from '../Props/genre_props';
+import { useEffect, useState } from 'react';
+import styles from "../../styles/metrics.module.css";
+import Avarege from './avarege';
+import type { MovieProps } from '../Props/movie_props';
+import type { GenreProps } from '../Props/genre_props';
 
-// type MoviesPerGenreProps = {
-//     data: MovieProps[];
-// };
+type AvaregePerGenreProps = {
+    data: MovieProps[];
+    genresData: GenreProps[];
+};
 
-// export default function AvaregeVotePerGenre({data}: MoviesPerGenreProps) {
-//     const [genresData, setGenresData] = useState<GenreProps[]>([]);
-//     const [genreId_entries_hashMap, setGenreId_entries_hashMap] = useState<{ [key: string]: number }>({}); 
- 
-//     useEffect(() => {
-//         try {
-//             const options = {
-//                 method: 'GET',
-//                 headers: {
-//                     accept: 'application/json',
-//                     Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`
-//                 }
-//             };
+export default function AvaregeVotePerGenre({data, genresData}: AvaregePerGenreProps) {
+    const [avarege_genres_hashMap, setAvarege_genres_hashMap] = useState<{ [key: string]: number[] }>({}); 
 
-//             fetch('https://api.themoviedb.org/3/genre/movie/list?language=pt-br', options)
-//             .then(res => res.json())
-//             .then(data => {
-//                 setGenresData(data.genres);
-//             });
-//         } catch (error) {
-//             console.error('Error fetching data:', error);
-//         }
-//     }, []);
+    useEffect(() => {
+        if (genresData.length === 0) return;
 
-//     useEffect(() => {
-//         if (genresData.length === 0) return;
+        const getGenreNameById = (genreId: number) => {
+            const genre = genresData.find(genre => genre.id === genreId);
+            return genre ? genre.name : 'Desconhecido';
+        }
 
-//         const getGenreNameById = (genreId: number) => {
-//             const genre = genresData.find(genre => genre.id === genreId);
-//             return genre ? genre.name : 'Desconhecido';
-//         }
-
-//         const fillHashMap = (data: MovieProps[]) => {
-//             const hashMap: { [key: string]: number } = {};
+        const fillHashMap = (data: MovieProps[]) => {
+            const hashMap: { [key: string]: number[] } = {};
             
-//             data.forEach((movie: MovieProps) => {
-//                 movie.genre_ids.forEach((genreId: number) => { 
-//                     const genreName = getGenreNameById(genreId);
-//                     hashMap[genreName] = (hashMap[genreName] || 0) + 1;
-//                 });
-//             });
+            data.forEach((movie: MovieProps) => {
+                movie.genre_ids.forEach((genreId: number) => { 
+                    const genreName = getGenreNameById(genreId);
+                    
+                    if (!hashMap[genreName]) {
+                        hashMap[genreName] = [0, 0];
+                    }
 
-//             return hashMap;
-//         }
+                    hashMap[genreName][0] += 1;
+                    hashMap[genreName][1] += movie.vote_average; 
+                });
+            });
 
-//         setGenreId_entries_hashMap(fillHashMap(data));
-//     }, [genresData, data]);
+            return hashMap;
+        }
+
+        setAvarege_genres_hashMap(fillHashMap(data));
+    }, [data, genresData]);
     
-//     return (
-//         <div className={styles.movies_per_genre_container}>
-//             {Object.entries(genreId_entries_hashMap)
-//             .sort((a, b) => b[1] - a[1])
-//             .map(([genreName, count], index) => (
-//                 <Genre key={genreName} position={index + 1} genreName={genreName} count={count} />
-//             ))}
-//         </div>
-//     );
-// }
+    return (
+        <div className={`${styles.metrics_container} ${styles.genres_container}`}>
+            {Object.entries(avarege_genres_hashMap)
+            .sort((first, second) => {
+                const firstAverage = first[1][1] / first[1][0]; 
+                const secondAverage = second[1][1] / second[1][0]; 
+                return secondAverage - firstAverage;
+            })
+            .map(([genreName, [total, avarege]], index) => (
+                <Avarege key={genreName} position={index + 1} genreName={genreName} avarege={avarege / total} />
+            ))}
+        </div>
+    );
+}

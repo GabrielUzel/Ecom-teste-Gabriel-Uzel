@@ -3,13 +3,15 @@
 import { useEffect, useState } from 'react';
 import styles from "../styles/home.module.css";
 import TopRatedMovies from "@/components/Movies_list/top_rated_movies";
-// import AvaregeVotePerGenre from "@/components/Avarege Genre/avarege_vote_per_genre";
+import AvaregeVotePerGenre from "@/components/Avarege_Genre/avarege_vote_per_genre";
 import MoviesPerGenre from "@/components/Movies_per_Genre/movies_per_genre";
 import MoviesPerYear from '@/components/Movies_per_Year/movies_per_year';
 import type { MovieProps } from '../components/Props/movie_props';
+import type { GenreProps } from '@/components/Props/genre_props';
 
 export default function Home() {
     const [data, setData] = useState<MovieProps[]>([]);
+    const [genresData, setGenresData] = useState<GenreProps[]>([]);
 
     useEffect(() => {
         const fetchPages = async () => {
@@ -66,6 +68,26 @@ export default function Home() {
         fetchPages();
     }, []);
 
+    useEffect(() => {
+        try {
+            const options = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`
+                }
+            };
+
+            fetch('https://api.themoviedb.org/3/genre/movie/list?language=pt-br', options)
+            .then(res => res.json())
+            .then(data => {
+                setGenresData(data.genres);
+            });
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }, []);
+
     return (
         <div className={styles.main}>
             <h1 className={styles.home_title}>Consumo da api da The Movie Database</h1>
@@ -92,12 +114,11 @@ export default function Home() {
                 <div className={styles.metrics_container}>
                     <div>
                         <h3 className={styles.metrics_subtitle}>Média de nota por gênero</h3>
-                        {/* <AvaregeVotePerGenre data={data}/> */}
+                        <AvaregeVotePerGenre data={data} genresData={genresData}/>
                     </div>
-                    <div className={styles.vertical_line}></div>
                     <div>
                         <h3 className={styles.metrics_subtitle}>Quantidade de filmes por gênero</h3>
-                        <MoviesPerGenre data={data}/>
+                        <MoviesPerGenre data={data} genresData={genresData}/>
                     </div>
                     <div>
                         <h3 className={styles.metrics_subtitle}>Quantidade de filmes por ano</h3>

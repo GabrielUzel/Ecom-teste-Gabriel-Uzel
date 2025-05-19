@@ -6,31 +6,11 @@ import type { GenreProps } from '../Props/genre_props';
 
 type MoviesPerGenreProps = {
     data: MovieProps[];
+    genresData: GenreProps[];
 };
 
-export default function MoviesPerGenre({data}: MoviesPerGenreProps) {
-    const [genresData, setGenresData] = useState<GenreProps[]>([]);
+export default function MoviesPerGenre({data, genresData}: MoviesPerGenreProps) {
     const [genreId_entries_hashMap, setGenreId_entries_hashMap] = useState<{ [key: string]: number }>({}); 
- 
-    useEffect(() => {
-        try {
-            const options = {
-                method: 'GET',
-                headers: {
-                    accept: 'application/json',
-                    Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`
-                }
-            };
-
-            fetch('https://api.themoviedb.org/3/genre/movie/list?language=pt-br', options)
-            .then(res => res.json())
-            .then(data => {
-                setGenresData(data.genres);
-            });
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    }, []);
 
     useEffect(() => {
         if (genresData.length === 0) return;
@@ -57,9 +37,9 @@ export default function MoviesPerGenre({data}: MoviesPerGenreProps) {
     }, [genresData, data]);
     
     return (
-        <div className={`${styles.metrics_container} ${styles.movies_per_genre_container}`}>
+        <div className={`${styles.metrics_container} ${styles.genres_container}`}>
             {Object.entries(genreId_entries_hashMap)
-            .sort((a, b) => b[1] - a[1])
+            .sort((first, second) => second[1] - first[1])
             .map(([genreName, count], index) => (
                 <Genre key={genreName} position={index + 1} genreName={genreName} count={count} />
             ))}
