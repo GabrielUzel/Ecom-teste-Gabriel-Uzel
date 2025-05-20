@@ -3,14 +3,14 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 20px;
+    gap: 1.25em;
     height: 100dvh;
 }
 
 .error_title {
-    font-size: 50px;
+    font-size: 3.125em;
 }
 
 .error_text {
-    font-size: 20px;
+    font-size: 1.25em;
 }

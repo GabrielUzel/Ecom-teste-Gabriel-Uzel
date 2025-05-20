@@ -1,9 +1,7 @@
 .metrics_container {
     display: grid;
-    row-gap: 2px;
+    row-gap: 0.125em;
     grid-auto-flow: column;
-    grid-auto-columns: min-content;
-    column-gap: 100px;
 }
 
 .genres_container {
@@ -12,11 +10,25 @@
 
 .movies_per_year_container {
     grid-template-rows: repeat(10, auto);
-    column-gap: 60px;
 }
 
 .metrics_entrie {
-    font-size: 18px;
+    font-size: 1.125em;
     white-space: nowrap;
-    min-width: max-content;
+}
+
+@media only screen and (max-width: 1200px) {
+    .genres_container {
+        grid-template-rows: repeat(10, auto);
+    }
+
+    .movies_per_year_container {
+        grid-template-rows: repeat(28, auto);
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .metrics_entrie {
+        font-size: 0.9375em;
+    }
 }

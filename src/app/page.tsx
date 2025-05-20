@@ -68,7 +68,7 @@ export default function Home() {
             </p>
             <div className={styles.horizontal_line}></div>
 
-            <div style={{ minHeight: '400px' }}>
+            <div>
                 <h2 className={styles.home_subtitle}>Top 250 filmes</h2>
                 {isLoadingTop ? <Loading /> : <TopRatedMovies data={topMovies ?? []} />}
             </div>
@@ -77,15 +77,15 @@ export default function Home() {
             <div>
                 <h2 className={styles.home_subtitle}>Métricas</h2>
                 <div className={styles.metrics_container}>
-                    <div style={{ minHeight: '100px' }}>
+                    <div>
                         <h3 className={styles.metrics_subtitle}>Média de nota por gênero</h3>
                         <AvaregeVotePerGenre data={topMovies ?? []} genresData={genres ?? []} isLoading={isLoadingTop || isLoadingGenres}/>
                     </div>
-                    <div style={{ minHeight: '100px' }}>
+                    <div>
                         <h3 className={styles.metrics_subtitle}>Quantidade de filmes por gênero</h3>
                         <MoviesPerGenre data={topMovies ?? []} genresData={genres ?? []} isLoading={isLoadingTop || isLoadingGenres}/>
                     </div>
-                    <div style={{ minHeight: '100px' }}>
+                    <div>
                         <h3 className={styles.metrics_subtitle}>Quantidade de filmes por ano</h3>
                         {isLoadingTop ? <Loading /> : <MoviesPerYear data={topMovies ?? []}/>}
                     </div>
