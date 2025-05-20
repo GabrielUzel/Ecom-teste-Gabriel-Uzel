@@ -12,6 +12,7 @@
 
 .movies_per_year_container {
     grid-template-rows: repeat(10, auto);
+    column-gap: 60px;
 }
 
 .metrics_entrie {

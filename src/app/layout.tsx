@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Share_Tech } from "next/font/google";
 import "./globals.css";
+import ReactQueryProvider from "@/utils/react_query_provider";
 
 const share_tech = Share_Tech({
   subsets: ["latin"],
@@ -20,7 +21,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={`${share_tech.className}`}>
-        {children}
+        <ReactQueryProvider>
+            {children}
+        </ReactQueryProvider>
       </body>
     </html>
   );

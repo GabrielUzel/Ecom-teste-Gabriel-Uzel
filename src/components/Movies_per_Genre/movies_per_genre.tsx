@@ -3,13 +3,15 @@ import Genre from './genre';
 import styles from "../../styles/metrics.module.css";
 import type { MovieProps } from '../Props/movie_props';
 import type { GenreProps } from '../Props/genre_props';
+import Loading from '../loading';
 
 type MoviesPerGenreProps = {
     data: MovieProps[];
     genresData: GenreProps[];
+    isLoading: boolean;
 };
 
-export default function MoviesPerGenre({data, genresData}: MoviesPerGenreProps) {
+export default function MoviesPerGenre({data, genresData, isLoading}: MoviesPerGenreProps) {
     const [genreIdEntriesHashMap, setGenreIdEntriesHashMap] = useState<{ [key: string]: number }>({}); 
 
     useEffect(() => {
@@ -36,6 +38,10 @@ export default function MoviesPerGenre({data, genresData}: MoviesPerGenreProps) 
         setGenreIdEntriesHashMap(fillHashMap(data));
     }, [genresData, data]);
     
+    if(isLoading) {
+        return <Loading />;
+    }
+
     return (
         <div className={`${styles.metrics_container} ${styles.genres_container}`}>
             {Object.entries(genreIdEntriesHashMap)

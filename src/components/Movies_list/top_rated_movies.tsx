@@ -7,18 +7,17 @@ type TopRatedMoviesProps = {
     data: MovieProps[];
 };
 
-export default function TopRatedMovies({data}: TopRatedMoviesProps) {
-    const calculateInitialNumberOfMovies = (width: number) => { 
-        if (width >= 1715) return 12;
-        if (width >= 1495) return 10;
-        if (width >= 1275) return 8;
-        if (width >= 0) return 6;
-    }
+const calculateInitialNumberOfMovies = (width: number) => { 
+    if (width >= 1715) return 12;
+    if (width >= 1495) return 10;
+    if (width >= 1275) return 8;
+    if (width >= 0) return 6;
+}
 
+export default function TopRatedMovies({data}: TopRatedMoviesProps) {
     const [viewAllData, setViewAllData] = useState(false);
     const [viewportWidth, setViewportWidth] = useState<number>(0);
     const initialNumberOfMovies = calculateInitialNumberOfMovies(viewportWidth);
-
     const loadedData = viewAllData ? data : data.slice(0, initialNumberOfMovies);
     
     useEffect(() => {

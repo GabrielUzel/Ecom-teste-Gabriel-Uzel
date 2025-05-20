@@ -9,20 +9,19 @@ type TrendingMoviesProps = {
     trendingData: TrendingProps[];
 };
 
-export default function TrendingMovies({topMoviesData, trendingData}: TrendingMoviesProps) {
-    const calculateInitialNumberOfMovies = (width: number) => { 
-        if (width >= 1715) return 12;
-        if (width >= 1495) return 10;
-        if (width >= 1275) return 8;
-        if (width >= 0) return 6;
-    }
+const calculateInitialNumberOfMovies = (width: number) => { 
+    if (width >= 1715) return 12;
+    if (width >= 1495) return 10;
+    if (width >= 1275) return 8;
+    if (width >= 0) return 6;
+}
 
+export default function TrendingMovies({topMoviesData, trendingData}: TrendingMoviesProps) {
     const [moviesInTrendingList, setMoviesInTrendingList] = useState<MovieProps[]>([]);
     const [movieCount, setMovieCount] = useState(0);
     const [viewAllData, setViewAllData] = useState(false);
     const [viewportWidth, setViewportWidth] = useState<number>(0);
     const initialNumberOfMovies = calculateInitialNumberOfMovies(viewportWidth);
-
     const loadedData = viewAllData ? moviesInTrendingList : moviesInTrendingList.slice(0, initialNumberOfMovies);
 
     useEffect(() => {

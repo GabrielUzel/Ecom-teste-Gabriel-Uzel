@@ -3,13 +3,15 @@ import styles from "../../styles/metrics.module.css";
 import Avarege from './avarege';
 import type { MovieProps } from '../Props/movie_props';
 import type { GenreProps } from '../Props/genre_props';
+import Loading from '../loading';
 
 type AvaregePerGenreProps = {
     data: MovieProps[];
     genresData: GenreProps[];
+    isLoading: boolean; 
 };
 
-export default function AvaregeVotePerGenre({data, genresData}: AvaregePerGenreProps) {
+export default function AvaregeVotePerGenre({data, genresData, isLoading}: AvaregePerGenreProps) {
     const [avarege_genres_hashMap, setAvarege_genres_hashMap] = useState<{ [key: string]: number[] }>({}); 
 
     useEffect(() => {
@@ -42,6 +44,10 @@ export default function AvaregeVotePerGenre({data, genresData}: AvaregePerGenreP
         setAvarege_genres_hashMap(fillHashMap(data));
     }, [data, genresData]);
     
+    if(isLoading) {
+        return <Loading />;
+    }
+
     return (
         <div className={`${styles.metrics_container} ${styles.genres_container}`}>
             {Object.entries(avarege_genres_hashMap)
