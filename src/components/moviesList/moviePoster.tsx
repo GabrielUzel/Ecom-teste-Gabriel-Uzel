@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from 'next/link';
-import styles from "../../styles/movies_list.module.css";
-import type { MovieProps } from '../Props/movie_props';
+import styles from "../../styles/moviesList.module.css";
+import type { MovieProps } from '../props/movieProps';
 
 export default function MoviePoster({ id, position, poster_path, title, vote_average }: MovieProps) {
     return (

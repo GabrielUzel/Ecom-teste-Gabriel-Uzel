@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from "../../styles/metrics.module.css";
-import type { MovieProps } from '../Props/movie_props';
+import type { MovieProps } from '../props/movieProps';
 
 type MoviesPerYearProps = {
     data: MovieProps[];

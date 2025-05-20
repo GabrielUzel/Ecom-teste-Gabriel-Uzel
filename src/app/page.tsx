@@ -1,15 +1,15 @@
 'use client'
 
 import { useQuery } from "@tanstack/react-query";
-import getTopMovies from '@/fetch_scripts/get_data';
-import getTrendingMovies from '@/fetch_scripts/get_trending';
-import getGenres from '@/fetch_scripts/get_genres';
+import getTopMovies from '@/fetch_scripts/getData';
+import getTrendingMovies from '@/fetch_scripts/getTrending';
+import getGenres from '@/fetch_scripts/getGenres';
 import styles from "../styles/home.module.css";
-import TopRatedMovies from "@/components/Movies_List/top_rated_movies";
-import AvaregeVotePerGenre from "@/components/Avarege_Genre/avarege_vote_per_genre";
-import MoviesPerGenre from "@/components/Movies_per_Genre/movies_per_genre";
-import MoviesPerYear from '@/components/Movies_per_Year/movies_per_year';
-import TrendingMovies from '@/components/Movies_List/trending_movies';
+import TopRatedMovies from "@/components/moviesList/topRatedMovies";
+import AvaregeVotePerGenre from "@/components/avaregeGenre/avaregeVotePerGenre";
+import MoviesPerGenre from "@/components/moviesPerGenre/moviesPerGenre";
+import MoviesPerYear from '@/components/moviesPerYear/moviesPerYear';
+import TrendingMovies from '@/components/moviesList/trendingMovies';
 import Loading from "@/components/loading";
 import Error from "@/components/error";
 

@@ -1,4 +1,4 @@
-import { MovieProps } from "@/components/Props/movie_props";
+import { MovieProps } from "@/components/props/movieProps";
 
 async function getData(): Promise<MovieProps[]> {
     const options = {

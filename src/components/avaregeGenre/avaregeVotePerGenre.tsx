@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import styles from "../../styles/metrics.module.css";
 import Avarege from './avarege';
-import type { MovieProps } from '../Props/movie_props';
-import type { GenreProps } from '../Props/genre_props';
+import type { MovieProps } from '../props/movieProps';
+import type { GenreProps } from '../props/genreProps';
 import Loading from '../loading';
 
 type AvaregePerGenreProps = {

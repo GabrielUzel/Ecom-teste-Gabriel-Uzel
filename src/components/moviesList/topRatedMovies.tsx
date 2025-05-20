@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import MoviePoster from './movie_poster';
-import styles from "../../styles/movies_list.module.css";
-import type { MovieProps } from '../Props/movie_props';
+import MoviePoster from './moviePoster';
+import styles from "../../styles/moviesList.module.css";
+import type { MovieProps } from '../props/movieProps';
 
 type TopRatedMoviesProps = {
     data: MovieProps[];

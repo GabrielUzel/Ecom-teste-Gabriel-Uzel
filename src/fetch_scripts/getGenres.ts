@@ -1,4 +1,4 @@
-import type { GenreProps } from '@/components/Props/genre_props';
+import type { GenreProps } from '@/components/props/genreProps';
 
 async function getData(): Promise<GenreProps[]> {
     const options = {

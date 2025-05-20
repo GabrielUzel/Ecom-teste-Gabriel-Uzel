@@ -1,4 +1,4 @@
-import { TrendingProps } from '@/components/Props/trending_props';
+import { TrendingProps } from '@/components/props/trendingProps';
 
 async function getData(): Promise<TrendingProps[]> {
     const options = {
