@@ -24,7 +24,6 @@ async function getData(): Promise<MovieProps[]> {
             id: number; 
             genre_ids: number[]; 
             title: string; 
-            overview: string; 
             poster_path: string; 
             release_date: string; 
             vote_average: number; 
@@ -32,7 +31,6 @@ async function getData(): Promise<MovieProps[]> {
             id: item.id,
             genre_ids: item.genre_ids,
             title: item.title,
-            overview: item.overview,
             poster_path: item.poster_path,
             release_date: item.release_date,
             vote_average: item.vote_average
