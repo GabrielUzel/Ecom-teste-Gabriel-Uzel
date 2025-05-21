@@ -39,4 +39,82 @@ Para o desenvolvimento dessa implementação, utilizei o chatgpt:
 </p>
 <img src="https://github.com/user-attachments/assets/be7149b2-73f1-42f6-8a5e-09f0e5351ece"/>
 
+```
+// Resposta:
+import { useEffect, useState } from 'react';
 
+export default function MoviesPage() {
+  const [data, setData] = useState(null); // or use [] if expecting an array
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAllPages = async () => {
+      try {
+        const totalPages = 13;
+        const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY; // Store your API key in .env.local
+        const baseUrl = 'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=';
+
+        // Create array of fetch promises
+        const fetchPromises = Array.from({ length: totalPages }, (_, i) =>
+          fetch(${baseUrl}${i + 1}&api_key=${apiKey}).then(res => res.json())
+        );
+
+        // Wait for all requests to resolve
+        const results = await Promise.all(fetchPromises);
+
+        // Combine all movie results into a single array
+        const allMovies = results.flatMap(page => page.results || []);
+
+        setData(allMovies);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setData([]);
+        setLoading(false);
+      }
+    };
+
+    fetchAllPages();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (!data) return <p>No data</p>;
+
+  return (
+    <div>
+      <h1>Top Rated Movies</h1>
+      <ul>
+        {data.map(movie => (
+          <li key={movie.id}>{movie.title}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
+<p align="justify"> 
+A seguir, me deparei com um pequeno problema no response obtido do TMBD, havia duas entradas para um filme específico. Tratei o objeto com a função filter, dessa forma:
+</p>
+<img src="https://github.com/user-attachments/assets/79e881c0-f4f1-4c8e-ba4d-d2e39a6517f5"/>
+
+<p align="justify"> 
+A partir disso, o próximo passo seria obter os filmes que estão no top trending de uma pesquisa semanal. Utilizando a mesma lógica, fiz chamadas a api buscando as 20 primeiras páginas. Além disso, utilizei uma api extra do TMDB. Essa outra api retorna uma lista de gêneros que o site admite, junto com seus respectivos ids e nomes. Fiz isso para mostrar no frontend, uma vez que pediu-se métricas relacionadas aos gêneros dos filmes, além de que as outras apis não retornavam o nome dos gêneros nos objetos dos filmes, e sim um array com seus ids.
+</p>
+<img src="https://github.com/user-attachments/assets/8ceb79ab-5284-4284-b68b-d2191bc2ac0c"/>
+
+### React query
+<p align="justify"> 
+Os fetches estavam sendo realizados no componente principal por meio do hook useEffect. Porém, com o intuito de realizar caching dos dados, mudei para o react query, o qual lida automaticamente com este caching, com loadings e tratamento de erros. Abaixo estão as chamadas do react query, para cada chamada há um arquivo .ts específico, separei em outro arquivo para que o código fique mais limpo, mas nos campos "data", está sendo passadas as funções que realizam os fetches.
+</p>
+<img src="https://github.com/user-attachments/assets/1b6acee7-4bc0-4d34-8d88-14355c756e5f"/>
+
+<p align="justify"> 
+Os dados dos fetches foram passados como props para os componentes responsáveis por mostrar na tela o resultado obtido.
+</p>
+
+### Cálculo das métricas
+1. Média de nota por gênero
+<p align="justify"> 
+
+</p>
