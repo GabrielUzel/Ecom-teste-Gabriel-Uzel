@@ -137,6 +137,19 @@ Esta métrica foi a mais simples de ser implementada, basta utilizar outro hashm
 Por fim, o último requisito do teste foi apresentar a quantidade de filmes que estão, não só, no top 250 mais bem avaliados, como também estão presentes no top trending semanal. Para isso, bastou ler os dois objetos, o json de filmes no top 50 e o json que contém os filmes no top trending, e verificar quais deles estão presentes nos dois json fazendo uma busca por seus ids. Foi utilizado o deepseek para obter uma forma mais otimizada para fazer isso, pois a princípio pensei em utilizar um loop aninhado, entretanto, esta não é a solução mais otimizada. Foi utilizado um set, em que pegava os ids do objeto de trending e os armazenada, então foi criado um novo objeto que faz um filter no objeto de top filmes e seleciona aqueles que possuem id que estão neste set criado. Para obter a quantidade de filmes, basta pegar o tamanho desse novo objeto.
 </p>
 <img src="https://github.com/user-attachments/assets/49688e02-60f3-4877-bfab-cfb8d415926b"/>
+<img src="https://github.com/user-attachments/assets/d943d3f0-27c7-41ec-a17b-a387c0712f19"/>
+
+```
+// Resposta:
+const arr1 = [...]; // First JSON array
+const arr2 = [...]; // Second JSON array
+
+// Create a Set of IDs from the second array
+const idSet = new Set(arr2.map(item => item.id));
+
+// Filter elements in arr1 that exist in arr2
+const commonElements = arr1.filter(item => idSet.has(item.id));
+```
 
 ### Considerações finais
 <p align="justify"> 
