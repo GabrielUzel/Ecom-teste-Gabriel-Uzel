@@ -114,7 +114,31 @@ Os dados dos fetches foram passados como props para os componentes responsáveis
 </p>
 
 ### Cálculo das métricas
-1. Média de nota por gênero
+#### Média de nota por gênero
 <p align="justify"> 
+Para caulcular a média das notas para cada gênero, foi criado um hashmap em que a chave é uma string que indica o nome do gênero e um array que contém 2 valores, a quantidade de filmes calculada e a soma das notas totais para estes filmes. Para calcular a média, basta dividir este valor total pelo número de filmes encontrados. Para obter a string que indica o nome do gênero, foi criada uma função que lê o objeto que contém os nomes e retorna um nome específico dada um id passado como atributo desta função.
+</p>
+<img src="https://github.com/user-attachments/assets/dac4c8d2-ae2e-4c7c-a75c-4d7447512e0e"/>
 
+#### Quantidade de filmes por gênero
+<p align="justify"> 
+Utilizando um hashmap novamente, foi salvo como chave o nome do gênero e a quantidade de vezes que este aparece no objeto, basta percorrer a lista de filmes e seus gêneros e somar com 1 a cada gênero encontrado. Também foi utilizada a função que retorna o nome do gênero como uma string.
+</p>
+<img src="https://github.com/user-attachments/assets/6ad0d7a5-ee4a-4c09-9dbc-5245ffdac5c6"/>
+
+#### Quantidade de filmes por ano
+<p align="justify"> 
+Esta métrica foi a mais simples de ser implementada, basta utilizar outro hashmap em que a chave representa um ano específico e o valor representa a quantidade de filmes lançados naquele ano. O ano foi obtido fazendo um .slice no atributo de "realese_year" de cada filme.
+</p>
+<img src="https://github.com/user-attachments/assets/7acd261e-4e94-4436-a957-4927dac5e81e"/>
+
+### Filmes no top trending
+<p align="justify"> 
+Por fim, o último requisito do teste foi apresentar a quantidade de filmes que estão, não só, no top 250 mais bem avaliados, como também estão presentes no top trending semanal. Para isso, bastou ler os dois objetos, o json de filmes no top 50 e o json que contém os filmes no top trending, e verificar quais deles estão presentes nos dois json fazendo uma busca por seus ids. Foi utilizado o deepseek para obter uma forma mais otimizada para fazer isso, pois a princípio pensei em utilizar um loop aninhado, entretanto, esta não é a solução mais otimizada. Foi utilizado um set, em que pegava os ids do objeto de trending e os armazenada, então foi criado um novo objeto que faz um filter no objeto de top filmes e seleciona aqueles que possuem id que estão neste set criado. Para obter a quantidade de filmes, basta pegar o tamanho desse novo objeto.
+</p>
+<img src="https://github.com/user-attachments/assets/49688e02-60f3-4877-bfab-cfb8d415926b"/>
+
+### Considerações finais
+<p align="justify"> 
+Assim, com os componentes recebendo os dados dos fetches realizados e tratando-os, basta retornar na tela os dados organizados em flex-box e grids. Os grids foram utilizados para as métricas, para melhor ordenação e o flex-box foi utilizado para mostrar a lista de filmes, tanto dos 25 filmes mais bem avaliados quanto os filmes que estão no top e nos trendings, juntamente com seus pôsteres.
 </p>
