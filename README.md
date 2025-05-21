@@ -23,8 +23,20 @@ $ npm run dev
 3. Abra o navegador em localhost:3000
 
 ## Decisões técnicas e uso de IA
-### Listagem do top 250 mais bem avaliados do site
+### Fetches à API do TMDB
 <p align="justify"> 
 O primeiro ponto a ser desenvolvido foi obter a lista dos primeiros 250 do top mais bem avaliados do TMDB. Este serviço provém uma api que retorna uma página com 20 entradas de filmes, ou seja, para obter 250 filmes, deveremos fazer várias chamadas fetch e concatenar todos os resultados em um único objeto. O serviço do TMDB retorna várias informações sobre cada filme, mas para este projeto, apenas alguns foram selecionados: id, genre_ids (array com os ids dos gêneros do filme), title, poster_path (para mostrar no frontend o poster do filme), realese_date e vote_avarege. Para isto, usei um objeto do tipo type para definir quais atributos são necessários para este projeto:  
 </p>
-![MovieProps](https://github.com/user-attachments/assets/b5cf69ec-7849-4f27-969a-cb20b24776b9)
+<img src="https://github.com/user-attachments/assets/7f97feed-220e-42b8-a020-5f3b9b1effd2"/>
+
+<p align="justify"> 
+O atributo position se refere a posição do filme no array, para que o frontend organize isso. O meu primeiro obstaculo foi realizar esses fetches múltiplos e concatenar seus resultados em um só objeto. Foi criado um array que é criado a partir de uma função que realiza um fetch baseado em um index. Este fetch realiza uma chamada de forma que une o index ao final de uma url base, uma vez que, as páginas que quero obter do TMDB são selecionadas pelo query param page={numero}.
+</p>
+<img src="https://github.com/user-attachments/assets/d3adfd29-fb45-4ee8-b817-07bdd78a40dc"/>
+
+<p align="justify"> 
+Para o desenvolvimento dessa implementação, utilizei o chatgpt:
+</p>
+<img src="https://github.com/user-attachments/assets/be7149b2-73f1-42f6-8a5e-09f0e5351ece"/>
+
+
