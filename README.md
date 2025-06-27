@@ -3,12 +3,12 @@
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![React Query](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white)
 <p align="justify"> 
-Este projeto é uma pequena análise de um conjuto de 250 filmes que estão no top mais bem avaliados do site The Movie Database. Foi utilizado a linguagem Typescript e o framework Next.js para a construção do frontend do projeto. O projeto foi hospedado pelo <a href="https://ecom-teste-gabriel-uzel.vercel.app/">Vercel</a>. O objetivo deste trabalho é apresentar minhas habilidades com chamadas assícronas, manipulação de dados e, também, apresentação de resultados em uma interface polida.
+Este projeto é uma pequena análise de um conjuto de 250 filmes que estão no top mais bem avaliados do site The Movie Database. Foi utilizado a linguagem Typescript e o framework Next.js para a construção do frontend do projeto. O objetivo deste trabalho é apresentar minhas habilidades com chamadas assícronas, manipulação de dados e, também, apresentação de resultados em uma interface polida.
 </p>
 
 ## Instalação local
 <p align="justify"> 
-Apesar de estar hospedado em um serviço gratuito, aqui está o passo a passo para instalação e teste local:
+Aqui está o passo a passo para instalação e teste local:
 </p>
 
 1. Baixe o projeto e abra o terminal na raiz
